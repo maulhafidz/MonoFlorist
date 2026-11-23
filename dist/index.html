@@ -78,6 +78,12 @@
         .card .pr { font-size:1rem; letter-spacing:.06em; }
         .card .go { font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid rgba(251,247,241,.6); align-self:flex-start; padding-bottom:2px; margin-top:4px; }
         .stage.swap .art, .stage.swap .meta { opacity:0; }
+        .card .ph { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.22); }
+        .card .ph[hidden] { display:none; }
+        .card.has-photo .bq { display:none; }
+        .card.has-photo { background:#E9E1D3; }
+        .card.has-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(18,63,49,.78), rgba(18,63,49,0) 48%); pointer-events:none; }
+        .card .meta { z-index:1; }
         .bq .leaf { fill:var(--leaf); } .bq .c1 { fill:var(--c1); } .bq .c2 { fill:var(--c2); } .bq .c3 { fill:var(--c3); }
         .controls { position:relative; display:flex; align-items:center; justify-content:space-between; gap:24px; margin-top:48px; flex-wrap:wrap; }
         .dots { display:flex; align-items:center; gap:4px; }
@@ -112,7 +118,7 @@
         .flower { background:var(--sand); border-radius:8px; overflow:hidden; transition:box-shadow .3s; }
         .flower.picked { box-shadow:0 0 0 1.5px var(--green); }
         .flower.sold { opacity:.55; }
-        .flower .img { aspect-ratio:1; background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:3rem; }
+        .flower .img { aspect-ratio:1; background-size:cover; background-position:center 42%; display:flex; align-items:center; justify-content:center; font-size:3rem; }
         .flower .info { padding:14px 16px 16px; }
         .flower h3 { font-size:1.4rem; font-weight:600; color:var(--green); }
         .flower .price { font-size:.82rem; color:var(--muted); letter-spacing:.05em; }
@@ -261,7 +267,7 @@
         <div class="wrap">
             <div class="f-head head-r">
                 <div>
-                    <span class="eyebrow">Start from a design</span>
+                    <span class="eyebrow">Featured bouquets</span>
                     <h1 id="featured-title">Arrangements, made by hand</h1>
                 </div>
                                     <a href="https://wa.me/6285759640508?text=Hi%2C%20I%20would%20like%20to%20pre-order%20a%20bouquet." target="_blank" rel="noopener">Pre-order on WhatsApp</a>
@@ -283,6 +289,7 @@
     <circle class="c2" cx="150" cy="168" r="22"/>
     <rect x="112" y="176" width="76" height="112" rx="6" fill="#E7E2DA"/>
 </svg>
+<img class="ph" alt="" hidden>
 </div>
                     <span class="meta"><span class="nm"></span></span>
                 </button>
@@ -301,8 +308,9 @@
     <circle class="c2" cx="150" cy="168" r="22"/>
     <rect x="112" y="176" width="76" height="112" rx="6" fill="#E7E2DA"/>
 </svg>
+<img class="ph" alt="" hidden>
 </div>
-                    <span class="meta"><span class="nm"></span><span class="pr"></span><span class="go">Pre-order this design</span></span>
+                    <span class="meta"><span class="nm"></span><span class="pr"></span><span class="go">Pre-order this bouquet</span></span>
                 </button>
                 <button type="button" class="card side" id="cardR" aria-label="Show next design">
                     <div class="art"><svg viewBox="0 0 300 320" width="100%" height="100%" preserveAspectRatio="xMidYMax meet" aria-hidden="true" class="bq">
@@ -319,6 +327,7 @@
     <circle class="c2" cx="150" cy="168" r="22"/>
     <rect x="112" y="176" width="76" height="112" rx="6" fill="#E7E2DA"/>
 </svg>
+<img class="ph" alt="" hidden>
 </div>
                     <span class="meta"><span class="nm"></span></span>
                 </button>
@@ -380,93 +389,66 @@
             </div>
             <div class="flowers">
                                     <article class="flower ">
-                        <div class="img" style="background-color:#f1d3d9; ">
-                             🌸                         </div>
+                        <div class="img" style="background-color:#cfe6f2;  background-image:url('/images/flowers/sky-lily.jpg') ">
+                                                    </div>
                         <div class="info">
-                            <h3>Rose</h3>
-                            <span class="price">Rp 15.000 / stem</span>
-                            <span class="note">Classic and timeless. Lifelike petals.</span>
+                            <h3>Sky Lily</h3>
+                            <span class="price">Rp 10.000 / stem</span>
+                            <span class="note">Sky-blue petals with soft white edges. Without leaves.</span>
                                                     </div>
                     </article>
                                     <article class="flower ">
-                        <div class="img" style="background-color:#f7e6d8; ">
-                             🌸                         </div>
-                        <div class="info">
-                            <h3>Lily</h3>
-                            <span class="price">Rp 20.000 / stem</span>
-                            <span class="note">Elegant and graceful. Never wilts.</span>
+                        <div class="img" style="background-color:#e9e8e4;  background-image:url('/images/flowers/daisy.jpg') ">
                                                     </div>
-                    </article>
-                                    <article class="flower ">
-                        <div class="img" style="background-color:#f5c9d0; ">
-                             🌸                         </div>
-                        <div class="info">
-                            <h3>Tulip</h3>
-                            <span class="price">Rp 18.000 / stem</span>
-                            <span class="note">Spring favorite, all year round.</span>
-                                                    </div>
-                    </article>
-                                    <article class="flower ">
-                        <div class="img" style="background-color:#f3e0a0; ">
-                             🌸                         </div>
-                        <div class="info">
-                            <h3>Sunflower</h3>
-                            <span class="price">Rp 17.000 / stem</span>
-                            <span class="note">Bold and bright. Keeps its color.</span>
-                                                    </div>
-                    </article>
-                                    <article class="flower sold">
-                        <div class="img" style="background-color:#f2bfcf; ">
-                             🌸                         </div>
-                        <div class="info">
-                            <h3>Peony</h3>
-                            <span class="price">Rp 30.000 / stem</span>
-                            <span class="note">Out of stock. Restocking soon.</span>
-                             <span class="sold-tag">Sold out</span>                         </div>
-                    </article>
-                                    <article class="flower ">
-                        <div class="img" style="background-color:#d9cdee; ">
-                             🌸                         </div>
-                        <div class="info">
-                            <h3>Lavender</h3>
-                            <span class="price">Rp 12.000 / stem</span>
-                            <span class="note">Soft purple tones. No watering needed.</span>
-                                                    </div>
-                    </article>
-                                    <article class="flower ">
-                        <div class="img" style="background-color:#eef1e4; ">
-                             🌸                         </div>
                         <div class="info">
                             <h3>Daisy</h3>
-                            <span class="price">Rp 8.000 / stem</span>
-                            <span class="note">Light and playful.</span>
+                            <span class="price">Rp 5.000 / stem</span>
+                            <span class="note">White petals, sunny yellow center, with leaves.</span>
                                                     </div>
                     </article>
                                     <article class="flower ">
-                        <div class="img" style="background-color:#f5d2b8; ">
-                             🌸                         </div>
+                        <div class="img" style="background-color:#f5dfe0;  background-image:url('/images/flowers/blush-petunia.jpg') ">
+                                                    </div>
                         <div class="info">
-                            <h3>Carnation</h3>
+                            <h3>Blush Petunia</h3>
                             <span class="price">Rp 10.000 / stem</span>
-                            <span class="note">Full, ruffled petals. Lasts for years.</span>
+                            <span class="note">Ruffled pink petals with a white fringe.</span>
                                                     </div>
                     </article>
                                     <article class="flower ">
-                        <div class="img" style="background-color:#e4ebe0; ">
-                             🌸                         </div>
+                        <div class="img" style="background-color:#f3dcdc;  background-image:url('/images/flowers/blush-lily.jpg') ">
+                                                    </div>
                         <div class="info">
-                            <h3>Baby&#039;s Breath</h3>
-                            <span class="price">Rp 6.000 / stem</span>
-                            <span class="note">Delicate filler for any bouquet.</span>
+                            <h3>Blush Lily</h3>
+                            <span class="price">Rp 12.000 / stem</span>
+                            <span class="note">Soft pink lily with a golden center.</span>
                                                     </div>
                     </article>
                                     <article class="flower ">
-                        <div class="img" style="background-color:#cfe0d2; ">
-                             🌸                         </div>
+                        <div class="img" style="background-color:#f2d34a;  background-image:url('/images/flowers/sunshine-lily.jpg') ">
+                                                    </div>
                         <div class="info">
-                            <h3>Eucalyptus</h3>
-                            <span class="price">Rp 7.000 / stem</span>
-                            <span class="note">Soft greenery that never dries out.</span>
+                            <h3>Sunshine Lily</h3>
+                            <span class="price">Rp 10.000 / stem</span>
+                            <span class="note">Bright yellow petals that curl at the tips. Without leaves.</span>
+                                                    </div>
+                    </article>
+                                    <article class="flower ">
+                        <div class="img" style="background-color:#dfe3e6;  background-image:url('/images/flowers/bluebell.jpg') ">
+                                                    </div>
+                        <div class="info">
+                            <h3>Bluebell</h3>
+                            <span class="price">Rp 8.000 / stem</span>
+                            <span class="note">A curved green stem with little blue bells.</span>
+                                                    </div>
+                    </article>
+                                    <article class="flower ">
+                        <div class="img" style="background-color:#d9d0ea;  background-image:url('/images/flowers/violet-lily.jpg') ">
+                                                    </div>
+                        <div class="info">
+                            <h3>Violet Lily</h3>
+                            <span class="price">Rp 12.000 / stem</span>
+                            <span class="note">Lavender-purple petals with green leaves.</span>
                                                     </div>
                     </article>
                             </div>
@@ -567,8 +549,10 @@
     <script>
         /* ---------- design carousel + occasion tiles ---------- */
         (function () {
-            var S = [{"name":"Ivory Morning","desc":"Soft whites with gentle greenery.","c1":"#F4F1E6","c2":"#E8E4D2","c3":"#C9C7A8","leaf":"#5E7F5A","mix":{"Lily":3,"Daisy":4,"Baby\u0027s Breath":3,"Eucalyptus":2},"price":134000},{"name":"Blush Letter","desc":"Roses, tulips and a touch of green.","c1":"#F2C9C4","c2":"#E8A6A0","c3":"#F7E3DA","leaf":"#56785A","mix":{"Rose":8,"Tulip":2,"Baby\u0027s Breath":3,"Eucalyptus":2},"price":198000},{"name":"Marigold Hour","desc":"Sunflowers and warm carnations.","c1":"#F0B04A","c2":"#E58A3A","c3":"#F6D58A","leaf":"#4F7350","mix":{"Sunflower":5,"Carnation":3,"Daisy":4,"Eucalyptus":2},"price":171000},{"name":"Lilac Field","desc":"Lavender, tulips and soft filler.","c1":"#C7B3E0","c2":"#A68CCB","c3":"#EDE3F6","leaf":"#5B7A62","mix":{"Lavender":6,"Tulip":4,"Baby\u0027s Breath":3},"price":172000},{"name":"Wild Meadow","desc":"Daisies and carnations, loosely tied.","c1":"#F4EEDC","c2":"#E9A26B","c3":"#B7A3D6","leaf":"#6A8A55","mix":{"Daisy":6,"Carnation":3,"Lavender":3,"Eucalyptus":2},"price":138000},{"name":"Evergreen Calm","desc":"Lilies and greenery, calm and timeless.","c1":"#EEF0E6","c2":"#BFD3B8","c3":"#DCE6D2","leaf":"#3F6A4E","mix":{"Lily":4,"Eucalyptus":5,"Baby\u0027s Breath":3},"price":143000}];
-            var O = [{"name":"Birthday","desc":"Bright, generous bunches, ready to brighten any table.","starter":2,"icon":"\u003Crect x=\u00224\u0022 y=\u002211\u0022 width=\u002216\u0022 height=\u00229\u0022 rx=\u00221.5\u0022\/\u003E\u003Cpath d=\u0022M4 15h16M12 11V7M12 7c-1.5-1-1.5-3 0-4 1.5 1 1.5 3 0 4z\u0022\/\u003E"},{"name":"Anniversary","desc":"Roses and garden-style blooms, wrapped with a handwritten card.","starter":1,"icon":"\u003Cpath d=\u0022M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z\u0022\/\u003E"},{"name":"Sympathy","desc":"Soft whites and greens, a keepsake that stays with them.","starter":5,"icon":"\u003Cpath d=\u0022M12 21V11M12 11c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c3 0 5-2 5-5-3 0-5 2-5 5zM12 15c-2.5 0-4-1.5-4-3.5\u0022\/\u003E"},{"name":"Just because","desc":"A studio favorite, made to be kept for years.","starter":4,"icon":"\u003Ccircle cx=\u002212\u0022 cy=\u00229\u0022 r=\u00223\u0022\/\u003E\u003Cpath d=\u0022M12 6V3M12 15v6M9 9H6M18 9h-3M9.9 6.9 8 5M14.1 6.9 16 5\u0022\/\u003E"}];
+            var C = [{"name":"Pink Ribbon","desc":"Pink blossoms in clear wrap with a satin ribbon.","price":null,"mix":null,"image":"\/images\/bouquets\/pink-ribbon.jpg"},{"name":"Lily Posy","desc":"Pink and magenta lilies in a soft ivory wrap.","price":null,"mix":null,"image":"\/images\/bouquets\/lily-posy.jpg"},{"name":"Butterfly Garden","desc":"Blue, pink and purple lilies with white roses and a gold butterfly.","price":null,"mix":null,"image":"\/images\/bouquets\/butterfly-garden.jpg"},{"name":"Ivory Morning","desc":"White daisies with soft blue and pink lilies.","c1":"#F4F1E6","c2":"#E8E4D2","c3":"#C9C7A8","leaf":"#5E7F5A","mix":{"Daisy":6,"Sky Lily":2,"Blush Lily":2},"price":84000},{"name":"Blush Letter","desc":"Pink lilies and petunias with white daisies.","c1":"#F2C9C4","c2":"#E8A6A0","c3":"#F7E3DA","leaf":"#56785A","mix":{"Blush Lily":4,"Blush Petunia":4,"Daisy":2},"price":108000},{"name":"Marigold Hour","desc":"Sunny yellow lilies with daisies and bluebells.","c1":"#F0B04A","c2":"#E58A3A","c3":"#F6D58A","leaf":"#4F7350","mix":{"Sunshine Lily":5,"Daisy":4,"Bluebell":2},"price":96000},{"name":"Lilac Field","desc":"Violet lilies, bluebells and a few daisies.","c1":"#C7B3E0","c2":"#A68CCB","c3":"#EDE3F6","leaf":"#5B7A62","mix":{"Violet Lily":5,"Bluebell":3,"Daisy":2},"price":104000},{"name":"Wild Meadow","desc":"A little of everything, loosely tied.","c1":"#F4EEDC","c2":"#E9A26B","c3":"#B7A3D6","leaf":"#6A8A55","mix":{"Daisy":4,"Sunshine Lily":2,"Violet Lily":2,"Blush Petunia":2},"price":94000},{"name":"Sky Garden","desc":"Cool blues with white daisies.","c1":"#CFE6F2","c2":"#9CC9E4","c3":"#EAF4FA","leaf":"#3F6A4E","mix":{"Sky Lily":4,"Bluebell":4,"Daisy":3},"price":97000}];     // carousel items: photo bouquets first, then illustrated starters
+            var S = [{"name":"Ivory Morning","desc":"White daisies with soft blue and pink lilies.","c1":"#F4F1E6","c2":"#E8E4D2","c3":"#C9C7A8","leaf":"#5E7F5A","mix":{"Daisy":6,"Sky Lily":2,"Blush Lily":2},"price":84000},{"name":"Blush Letter","desc":"Pink lilies and petunias with white daisies.","c1":"#F2C9C4","c2":"#E8A6A0","c3":"#F7E3DA","leaf":"#56785A","mix":{"Blush Lily":4,"Blush Petunia":4,"Daisy":2},"price":108000},{"name":"Marigold Hour","desc":"Sunny yellow lilies with daisies and bluebells.","c1":"#F0B04A","c2":"#E58A3A","c3":"#F6D58A","leaf":"#4F7350","mix":{"Sunshine Lily":5,"Daisy":4,"Bluebell":2},"price":96000},{"name":"Lilac Field","desc":"Violet lilies, bluebells and a few daisies.","c1":"#C7B3E0","c2":"#A68CCB","c3":"#EDE3F6","leaf":"#5B7A62","mix":{"Violet Lily":5,"Bluebell":3,"Daisy":2},"price":104000},{"name":"Wild Meadow","desc":"A little of everything, loosely tied.","c1":"#F4EEDC","c2":"#E9A26B","c3":"#B7A3D6","leaf":"#6A8A55","mix":{"Daisy":4,"Sunshine Lily":2,"Violet Lily":2,"Blush Petunia":2},"price":94000},{"name":"Sky Garden","desc":"Cool blues with white daisies.","c1":"#CFE6F2","c2":"#9CC9E4","c3":"#EAF4FA","leaf":"#3F6A4E","mix":{"Sky Lily":4,"Bluebell":4,"Daisy":3},"price":97000}];     // starters only (occasion tiles point into this list)
+            var O = [{"name":"Birthday","desc":"Bright, generous bunches, ready to brighten any table.","starter":2,"icon":"\u003Crect x=\u00224\u0022 y=\u002211\u0022 width=\u002216\u0022 height=\u00229\u0022 rx=\u00221.5\u0022\/\u003E\u003Cpath d=\u0022M4 15h16M12 11V7M12 7c-1.5-1-1.5-3 0-4 1.5 1 1.5 3 0 4z\u0022\/\u003E"},{"name":"Anniversary","desc":"Roses and garden-style blooms, wrapped with a handwritten card.","starter":1,"icon":"\u003Cpath d=\u0022M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z\u0022\/\u003E"},{"name":"Sympathy","desc":"Soft whites and greens, a keepsake that stays with them.","starter":0,"icon":"\u003Cpath d=\u0022M12 21V11M12 11c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c3 0 5-2 5-5-3 0-5 2-5 5zM12 15c-2.5 0-4-1.5-4-3.5\u0022\/\u003E"},{"name":"Just because","desc":"A studio favorite, made to be kept for years.","starter":4,"icon":"\u003Ccircle cx=\u002212\u0022 cy=\u00229\u0022 r=\u00223\u0022\/\u003E\u003Cpath d=\u0022M12 6V3M12 15v6M9 9H6M18 9h-3M9.9 6.9 8 5M14.1 6.9 16 5\u0022\/\u003E"}];
+            var builder = false;
             var baseUrl = "https:\/\/wa.me\/6285759640508";
             var shop = "MonoFlorist";
 
@@ -577,7 +561,7 @@
                 var url = baseUrl + (baseUrl.indexOf('?') > -1 ? '&' : '?') + 'text=' + encodeURIComponent(text);
                 window.open(url, '_blank', 'noopener');
             }
-            var n = S.length;
+            var n = C.length;
             var i = 0;
             var stage = document.getElementById('stage');
             var cards = { l: document.getElementById('cardL'), c: document.getElementById('cardC'), r: document.getElementById('cardR') };
@@ -588,16 +572,24 @@
             function idx(k) { return (i + k + n) % n; }
 
             function paint(el, s) {
-                el.style.setProperty('--c1', s.c1);
-                el.style.setProperty('--c2', s.c2);
-                el.style.setProperty('--c3', s.c3);
-                el.style.setProperty('--leaf', s.leaf);
+                var photo = !!s.image;
+                el.classList.toggle('has-photo', photo);
+                var ph = el.querySelector('.ph');
+                if (photo) { ph.src = s.image; ph.hidden = false; } else { ph.hidden = true; ph.removeAttribute('src'); }
+                if (!photo) {
+                    el.style.setProperty('--c1', s.c1);
+                    el.style.setProperty('--c2', s.c2);
+                    el.style.setProperty('--c3', s.c3);
+                    el.style.setProperty('--leaf', s.leaf);
+                }
                 el.querySelector('.nm').textContent = s.name;
                 var p = el.querySelector('.pr');
-                if (p) p.textContent = 'FROM ' + rp(s.price);
+                if (p) { p.textContent = s.price ? 'FROM ' + rp(s.price) : ''; p.hidden = !s.price; }
+                var g = el.querySelector('.go');
+                if (g) g.textContent = (builder && s.mix) ? 'Start with this design' : 'Pre-order this bouquet';
             }
 
-            S.forEach(function (s, j) {
+            C.forEach(function (s, j) {
                 var b = document.createElement('button');
                 b.type = 'button';
                 b.setAttribute('aria-label', 'Show ' + s.name);
@@ -607,10 +599,10 @@
             });
 
             function draw() {
-                paint(cards.l, S[idx(-1)]);
-                paint(cards.c, S[i]);
-                paint(cards.r, S[idx(1)]);
-                cards.c.setAttribute('aria-label', 'Use ' + S[i].name + ' as your starting bouquet');
+                paint(cards.l, C[idx(-1)]);
+                paint(cards.c, C[i]);
+                paint(cards.r, C[idx(1)]);
+                cards.c.setAttribute('aria-label', 'Pre-order the ' + C[i].name + ' bouquet');
                 Array.prototype.forEach.call(dotsEl.children, function (b, j) { b.classList.toggle('on', j === i); });
                 document.getElementById('count').textContent = String(i + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
                 document.getElementById('fill').style.width = ((i + 1) / n * 100).toFixed(2) + '%';
@@ -634,8 +626,9 @@
             cards.l.addEventListener('click', function () { go(idx(-1)); });
             cards.r.addEventListener('click', function () { go(idx(1)); });
             cards.c.addEventListener('click', function () {
-                if (window.Bouquet) window.Bouquet.apply(S[i].mix, '');
-                else whatsapp('Hi ' + shop + ', I would like to pre-order the "' + S[i].name + '" bouquet.');
+                // designs with a flower mix open the builder; photo bouquets go straight to WhatsApp
+                if (window.Bouquet && C[i].mix) window.Bouquet.apply(C[i].mix, '');
+                else whatsapp('Hi ' + shop + ', I would like to pre-order the "' + C[i].name + '" bouquet.');
             });
 
             document.querySelectorAll('.occ').forEach(function (btn) {

@@ -25,16 +25,14 @@ return [
     // note: short detail line. available: false shows "Sold out".
     // image: file inside public/images/flowers (optional). Without it a color placeholder shows.
     'flowers' => [
-        ['name' => 'Rose',           'price' => 15000, 'color' => '#f1d3d9', 'image' => null, 'available' => true, 'note' => 'Classic and timeless. Lifelike petals.'],
-        ['name' => 'Lily',           'price' => 20000, 'color' => '#f7e6d8', 'image' => null, 'available' => true, 'note' => 'Elegant and graceful. Never wilts.'],
-        ['name' => 'Tulip',          'price' => 18000, 'color' => '#f5c9d0', 'image' => null, 'available' => true, 'note' => 'Spring favorite, all year round.'],
-        ['name' => 'Sunflower',      'price' => 17000, 'color' => '#f3e0a0', 'image' => null, 'available' => true, 'note' => 'Bold and bright. Keeps its color.'],
-        ['name' => 'Peony',          'price' => 30000, 'color' => '#f2bfcf', 'image' => null, 'available' => false, 'note' => 'Out of stock. Restocking soon.'],
-        ['name' => 'Lavender',       'price' => 12000, 'color' => '#d9cdee', 'image' => null, 'available' => true, 'note' => 'Soft purple tones. No watering needed.'],
-        ['name' => 'Daisy',          'price' => 8000,  'color' => '#eef1e4', 'image' => null, 'available' => true, 'note' => 'Light and playful.'],
-        ['name' => 'Carnation',      'price' => 10000, 'color' => '#f5d2b8', 'image' => null, 'available' => true, 'note' => 'Full, ruffled petals. Lasts for years.'],
-        ['name' => 'Baby\'s Breath', 'price' => 6000,  'color' => '#e4ebe0', 'image' => null, 'available' => true, 'note' => 'Delicate filler for any bouquet.'],
-        ['name' => 'Eucalyptus',     'price' => 7000,  'color' => '#cfe0d2', 'image' => null, 'available' => true, 'note' => 'Soft greenery that never dries out.'],
+        // Price per stem, in rupiah.
+        ['name' => 'Sky Lily',       'price' => 10000, 'color' => '#cfe6f2', 'image' => 'sky-lily.jpg',       'available' => true, 'note' => 'Sky-blue petals with soft white edges. Without leaves.'],
+        ['name' => 'Daisy',          'price' => 5000, 'color' => '#e9e8e4', 'image' => 'daisy.jpg',          'available' => true, 'note' => 'White petals, sunny yellow center, with leaves.'],
+        ['name' => 'Blush Petunia',  'price' => 10000, 'color' => '#f5dfe0', 'image' => 'blush-petunia.jpg',  'available' => true, 'note' => 'Ruffled pink petals with a white fringe.'],
+        ['name' => 'Blush Lily',     'price' => 12000, 'color' => '#f3dcdc', 'image' => 'blush-lily.jpg',     'available' => true, 'note' => 'Soft pink lily with a golden center.'],
+        ['name' => 'Sunshine Lily',  'price' => 10000, 'color' => '#f2d34a', 'image' => 'sunshine-lily.jpg',  'available' => true, 'note' => 'Bright yellow petals that curl at the tips. Without leaves.'],
+        ['name' => 'Bluebell',       'price' => 8000, 'color' => '#dfe3e6', 'image' => 'bluebell.jpg',       'available' => true, 'note' => 'A curved green stem with little blue bells.'],
+        ['name' => 'Violet Lily',    'price' => 12000, 'color' => '#d9d0ea', 'image' => 'violet-lily.jpg',    'available' => true, 'note' => 'Lavender-purple petals with green leaves.'],
     ],
 
     // Wrapping choices (one is picked per bouquet).
@@ -54,15 +52,23 @@ return [
         ['from' => 20, 'name' => 'Grand'],
     ],
 
+    // Finished bouquets shown first in the carousel (photo file inside public/images/bouquets).
+    // price: set a number (rupiah) to show "FROM Rp ...", or leave null to hide the price.
+    'bouquets' => [
+        ['name' => 'Pink Ribbon',      'desc' => 'Pink blossoms in clear wrap with a satin ribbon.',                   'image' => 'pink-ribbon.jpg',      'price' => null],
+        ['name' => 'Lily Posy',        'desc' => 'Pink and magenta lilies in a soft ivory wrap.',                      'image' => 'lily-posy.jpg',        'price' => null],
+        ['name' => 'Butterfly Garden', 'desc' => 'Blue, pink and purple lilies with white roses and a gold butterfly.', 'image' => 'butterfly-garden.jpg', 'price' => null],
+    ],
+
     // Ready-made starting points. mix = flower name => stems. Visitors can edit after picking one.
     // c1/c2/c3 = bloom colors and leaf = foliage color for the carousel illustration.
     'starters' => [
-        ['name' => 'Ivory Morning',  'desc' => 'Soft whites with gentle greenery.',     'c1' => '#F4F1E6', 'c2' => '#E8E4D2', 'c3' => '#C9C7A8', 'leaf' => '#5E7F5A', 'mix' => ['Lily' => 3, 'Daisy' => 4, 'Baby\'s Breath' => 3, 'Eucalyptus' => 2]],
-        ['name' => 'Blush Letter',   'desc' => 'Roses, tulips and a touch of green.',  'c1' => '#F2C9C4', 'c2' => '#E8A6A0', 'c3' => '#F7E3DA', 'leaf' => '#56785A', 'mix' => ['Rose' => 8, 'Tulip' => 2, 'Baby\'s Breath' => 3, 'Eucalyptus' => 2]],
-        ['name' => 'Marigold Hour',  'desc' => 'Sunflowers and warm carnations.',      'c1' => '#F0B04A', 'c2' => '#E58A3A', 'c3' => '#F6D58A', 'leaf' => '#4F7350', 'mix' => ['Sunflower' => 5, 'Carnation' => 3, 'Daisy' => 4, 'Eucalyptus' => 2]],
-        ['name' => 'Lilac Field',    'desc' => 'Lavender, tulips and soft filler.',    'c1' => '#C7B3E0', 'c2' => '#A68CCB', 'c3' => '#EDE3F6', 'leaf' => '#5B7A62', 'mix' => ['Lavender' => 6, 'Tulip' => 4, 'Baby\'s Breath' => 3]],
-        ['name' => 'Wild Meadow',    'desc' => 'Daisies and carnations, loosely tied.', 'c1' => '#F4EEDC', 'c2' => '#E9A26B', 'c3' => '#B7A3D6', 'leaf' => '#6A8A55', 'mix' => ['Daisy' => 6, 'Carnation' => 3, 'Lavender' => 3, 'Eucalyptus' => 2]],
-        ['name' => 'Evergreen Calm', 'desc' => 'Lilies and greenery, calm and timeless.', 'c1' => '#EEF0E6', 'c2' => '#BFD3B8', 'c3' => '#DCE6D2', 'leaf' => '#3F6A4E', 'mix' => ['Lily' => 4, 'Eucalyptus' => 5, 'Baby\'s Breath' => 3]],
+        ['name' => 'Ivory Morning',  'desc' => 'White daisies with soft blue and pink lilies.', 'c1' => '#F4F1E6', 'c2' => '#E8E4D2', 'c3' => '#C9C7A8', 'leaf' => '#5E7F5A', 'mix' => ['Daisy' => 6, 'Sky Lily' => 2, 'Blush Lily' => 2]],
+        ['name' => 'Blush Letter',   'desc' => 'Pink lilies and petunias with white daisies.',  'c1' => '#F2C9C4', 'c2' => '#E8A6A0', 'c3' => '#F7E3DA', 'leaf' => '#56785A', 'mix' => ['Blush Lily' => 4, 'Blush Petunia' => 4, 'Daisy' => 2]],
+        ['name' => 'Marigold Hour',  'desc' => 'Sunny yellow lilies with daisies and bluebells.', 'c1' => '#F0B04A', 'c2' => '#E58A3A', 'c3' => '#F6D58A', 'leaf' => '#4F7350', 'mix' => ['Sunshine Lily' => 5, 'Daisy' => 4, 'Bluebell' => 2]],
+        ['name' => 'Lilac Field',    'desc' => 'Violet lilies, bluebells and a few daisies.',   'c1' => '#C7B3E0', 'c2' => '#A68CCB', 'c3' => '#EDE3F6', 'leaf' => '#5B7A62', 'mix' => ['Violet Lily' => 5, 'Bluebell' => 3, 'Daisy' => 2]],
+        ['name' => 'Wild Meadow',    'desc' => 'A little of everything, loosely tied.',         'c1' => '#F4EEDC', 'c2' => '#E9A26B', 'c3' => '#B7A3D6', 'leaf' => '#6A8A55', 'mix' => ['Daisy' => 4, 'Sunshine Lily' => 2, 'Violet Lily' => 2, 'Blush Petunia' => 2]],
+        ['name' => 'Sky Garden',     'desc' => 'Cool blues with white daisies.',                'c1' => '#CFE6F2', 'c2' => '#9CC9E4', 'c3' => '#EAF4FA', 'leaf' => '#3F6A4E', 'mix' => ['Sky Lily' => 4, 'Bluebell' => 4, 'Daisy' => 3]],
     ],
 
     // Occasion tiles: pick one and the builder opens with that starter (index into 'starters').
@@ -70,7 +76,7 @@ return [
     'occasions' => [
         ['name' => 'Birthday',     'desc' => 'Bright, generous bunches, ready to brighten any table.', 'starter' => 2, 'icon' => '<rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M4 15h16M12 11V7M12 7c-1.5-1-1.5-3 0-4 1.5 1 1.5 3 0 4z"/>'],
         ['name' => 'Anniversary',  'desc' => 'Roses and garden-style blooms, wrapped with a handwritten card.',        'starter' => 1, 'icon' => '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'],
-        ['name' => 'Sympathy',     'desc' => 'Soft whites and greens, a keepsake that stays with them.',             'starter' => 5, 'icon' => '<path d="M12 21V11M12 11c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c3 0 5-2 5-5-3 0-5 2-5 5zM12 15c-2.5 0-4-1.5-4-3.5"/>'],
+        ['name' => 'Sympathy',     'desc' => 'Soft whites and greens, a keepsake that stays with them.',             'starter' => 0, 'icon' => '<path d="M12 21V11M12 11c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c3 0 5-2 5-5-3 0-5 2-5 5zM12 15c-2.5 0-4-1.5-4-3.5"/>'],
         ['name' => 'Just because', 'desc' => 'A studio favorite, made to be kept for years.',            'starter' => 4, 'icon' => '<circle cx="12" cy="9" r="3"/><path d="M12 6V3M12 15v6M9 9H6M18 9h-3M9.9 6.9 8 5M14.1 6.9 16 5"/>'],
     ],
 

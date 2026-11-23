@@ -6,6 +6,11 @@
         foreach ($s['mix'] as $name => $q) { $sum += $q * ($byName[$name]['price'] ?? 0); }
         return $s + ['price' => $sum + $minWrap];
     })->values()->all();
+    $photoBouquets = collect(config('shop.bouquets'))->map(fn ($b) => [
+        'name' => $b['name'], 'desc' => $b['desc'], 'price' => $b['price'], 'mix' => null,
+        'image' => asset('images/bouquets/' . $b['image']),
+    ])->all();
+    $carousel = array_merge($photoBouquets, $starters);
     $occasions = config('shop.occasions');
     $builder = config('shop.builder_enabled');
     $tagline = $builder ? config('shop.tagline_builder') : config('shop.tagline');
@@ -93,6 +98,12 @@
         .card .pr { font-size:1rem; letter-spacing:.06em; }
         .card .go { font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid rgba(251,247,241,.6); align-self:flex-start; padding-bottom:2px; margin-top:4px; }
         .stage.swap .art, .stage.swap .meta { opacity:0; }
+        .card .ph { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.22); }
+        .card .ph[hidden] { display:none; }
+        .card.has-photo .bq { display:none; }
+        .card.has-photo { background:#E9E1D3; }
+        .card.has-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(18,63,49,.78), rgba(18,63,49,0) 48%); pointer-events:none; }
+        .card .meta { z-index:1; }
         .bq .leaf { fill:var(--leaf); } .bq .c1 { fill:var(--c1); } .bq .c2 { fill:var(--c2); } .bq .c3 { fill:var(--c3); }
         .controls { position:relative; display:flex; align-items:center; justify-content:space-between; gap:24px; margin-top:48px; flex-wrap:wrap; }
         .dots { display:flex; align-items:center; gap:4px; }
@@ -127,7 +138,7 @@
         .flower { background:var(--sand); border-radius:8px; overflow:hidden; transition:box-shadow .3s; }
         .flower.picked { box-shadow:0 0 0 1.5px var(--green); }
         .flower.sold { opacity:.55; }
-        .flower .img { aspect-ratio:1; background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; font-size:3rem; }
+        .flower .img { aspect-ratio:1; background-size:cover; background-position:center 42%; display:flex; align-items:center; justify-content:center; font-size:3rem; }
         .flower .info { padding:14px 16px 16px; }
         .flower h3 { font-size:1.4rem; font-weight:600; color:var(--green); }
         .flower .price { font-size:.82rem; color:var(--muted); letter-spacing:.05em; }
@@ -282,7 +293,7 @@
         <div class="wrap">
             <div class="f-head head-r">
                 <div>
-                    <span class="eyebrow">Start from a design</span>
+                    <span class="eyebrow">Featured bouquets</span>
                     <h1 id="featured-title">Arrangements, made by hand</h1>
                 </div>
                 @if ($builder)
@@ -299,7 +310,7 @@
                 </button>
                 <button type="button" class="card main" id="cardC" aria-label="Use this design">
                     <div class="art">@include('partials.bouquet', ['h' => 340])</div>
-                    <span class="meta"><span class="nm"></span><span class="pr"></span><span class="go">{{ $builder ? 'Start with this design' : 'Pre-order this design' }}</span></span>
+                    <span class="meta"><span class="nm"></span><span class="pr"></span><span class="go">Pre-order this bouquet</span></span>
                 </button>
                 <button type="button" class="card side" id="cardR" aria-label="Show next design">
                     <div class="art">@include('partials.bouquet', ['h' => 320])</div>
@@ -668,8 +679,10 @@
     <script>
         /* ---------- design carousel + occasion tiles ---------- */
         (function () {
-            var S = @json($starters);
+            var C = @json($carousel);     // carousel items: photo bouquets first, then illustrated starters
+            var S = @json($starters);     // starters only (occasion tiles point into this list)
             var O = @json($occasions);
+            var builder = @json($builder);
             var baseUrl = @json($preorderUrl);
             var shop = @json($shop);
 
@@ -678,7 +691,7 @@
                 var url = baseUrl + (baseUrl.indexOf('?') > -1 ? '&' : '?') + 'text=' + encodeURIComponent(text);
                 window.open(url, '_blank', 'noopener');
             }
-            var n = S.length;
+            var n = C.length;
             var i = 0;
             var stage = document.getElementById('stage');
             var cards = { l: document.getElementById('cardL'), c: document.getElementById('cardC'), r: document.getElementById('cardR') };
@@ -689,16 +702,24 @@
             function idx(k) { return (i + k + n) % n; }
 
             function paint(el, s) {
-                el.style.setProperty('--c1', s.c1);
-                el.style.setProperty('--c2', s.c2);
-                el.style.setProperty('--c3', s.c3);
-                el.style.setProperty('--leaf', s.leaf);
+                var photo = !!s.image;
+                el.classList.toggle('has-photo', photo);
+                var ph = el.querySelector('.ph');
+                if (photo) { ph.src = s.image; ph.hidden = false; } else { ph.hidden = true; ph.removeAttribute('src'); }
+                if (!photo) {
+                    el.style.setProperty('--c1', s.c1);
+                    el.style.setProperty('--c2', s.c2);
+                    el.style.setProperty('--c3', s.c3);
+                    el.style.setProperty('--leaf', s.leaf);
+                }
                 el.querySelector('.nm').textContent = s.name;
                 var p = el.querySelector('.pr');
-                if (p) p.textContent = 'FROM ' + rp(s.price);
+                if (p) { p.textContent = s.price ? 'FROM ' + rp(s.price) : ''; p.hidden = !s.price; }
+                var g = el.querySelector('.go');
+                if (g) g.textContent = (builder && s.mix) ? 'Start with this design' : 'Pre-order this bouquet';
             }
 
-            S.forEach(function (s, j) {
+            C.forEach(function (s, j) {
                 var b = document.createElement('button');
                 b.type = 'button';
                 b.setAttribute('aria-label', 'Show ' + s.name);
@@ -708,10 +729,10 @@
             });
 
             function draw() {
-                paint(cards.l, S[idx(-1)]);
-                paint(cards.c, S[i]);
-                paint(cards.r, S[idx(1)]);
-                cards.c.setAttribute('aria-label', 'Use ' + S[i].name + ' as your starting bouquet');
+                paint(cards.l, C[idx(-1)]);
+                paint(cards.c, C[i]);
+                paint(cards.r, C[idx(1)]);
+                cards.c.setAttribute('aria-label', 'Pre-order the ' + C[i].name + ' bouquet');
                 Array.prototype.forEach.call(dotsEl.children, function (b, j) { b.classList.toggle('on', j === i); });
                 document.getElementById('count').textContent = String(i + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
                 document.getElementById('fill').style.width = ((i + 1) / n * 100).toFixed(2) + '%';
@@ -735,8 +756,9 @@
             cards.l.addEventListener('click', function () { go(idx(-1)); });
             cards.r.addEventListener('click', function () { go(idx(1)); });
             cards.c.addEventListener('click', function () {
-                if (window.Bouquet) window.Bouquet.apply(S[i].mix, '');
-                else whatsapp('Hi ' + shop + ', I would like to pre-order the "' + S[i].name + '" bouquet.');
+                // designs with a flower mix open the builder; photo bouquets go straight to WhatsApp
+                if (window.Bouquet && C[i].mix) window.Bouquet.apply(C[i].mix, '');
+                else whatsapp('Hi ' + shop + ', I would like to pre-order the "' + C[i].name + '" bouquet.');
             });
 
             document.querySelectorAll('.occ').forEach(function (btn) {

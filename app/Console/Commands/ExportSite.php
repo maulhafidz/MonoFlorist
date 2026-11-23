@@ -25,10 +25,13 @@ class ExportSite extends Command
         }
 
         // Absolute links become relative, or use the real site URL when given.
+        // Also handles the JSON-escaped form (http:\/\/host\/path) used inside inline scripts.
         $site = rtrim((string) $this->option('url'), '/');
+        $escRoot = str_replace('/', '\/', $root);
+        $content = $response->getContent();
         $html = $site !== ''
-            ? str_replace($root, $site, $response->getContent())
-            : str_replace([$root . '/', $root], ['/', '/'], $response->getContent());
+            ? str_replace([$root, $escRoot], [$site, str_replace('/', '\/', $site)], $content)
+            : str_replace([$root . '/', $root, $escRoot . '\/', $escRoot], ['/', '/', '\/', '\/'], $content);
 
         $dist = base_path('dist');
         File::deleteDirectory($dist);

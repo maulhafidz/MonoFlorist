@@ -12,3 +12,4 @@
     <circle class="c2" cx="150" cy="168" r="22"/>
     <rect x="112" y="176" width="76" height="112" rx="6" fill="#E7E2DA"/>
 </svg>
+<img class="ph" alt="" hidden>
