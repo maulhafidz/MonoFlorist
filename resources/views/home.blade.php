@@ -38,8 +38,8 @@
     <style>
         :root { --sage:#4F6E62; --forest:#123F31; --green:#1F4D3F; --cream:#FBF7F1; --sand:#F1ECE3; --line:#E3DCCF; --gold:#8A6A3C; --ink:#1F2B26; --muted:#5C6B64; --soft:#4A5852; }
         * { box-sizing:border-box; margin:0; padding:0; }
-        html { scroll-behavior:smooth; scroll-padding-top:90px; }
-        body { font-family:'Jost',system-ui,sans-serif; font-weight:400; color:var(--ink); background:var(--cream); line-height:1.6; overflow-x:hidden; }
+        html { scroll-behavior:smooth; scroll-padding-top:90px; overflow-x:clip; }
+        body { font-family:'Jost',system-ui,sans-serif; font-weight:400; color:var(--ink); background:var(--cream); line-height:1.6; overflow-x:clip; }
         a { color:inherit; text-decoration:none; }
         button { font:inherit; cursor:pointer; color:inherit; }
         h1,h2,h3 { font-family:'Cormorant Garamond',Georgia,serif; font-weight:500; line-height:1.1; }
@@ -75,14 +75,14 @@
         .logo .name { font-family:'Marcellus',serif; font-size:clamp(1.3rem,2.6vw,2rem); line-height:1; letter-spacing:.12em; text-transform:uppercase; }
         .logo .sub { font-weight:500; font-size:.7rem; letter-spacing:.38em; }
         footer .badge { width:56px; height:56px; box-shadow:none; border:1px solid var(--line); }
-        .pill { display:inline-flex; align-items:center; min-height:40px; padding:0 22px; border-radius:999px; background:var(--cream); color:var(--green); font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; transition:background .3s ease, transform .3s ease, box-shadow .3s ease; }
+        .pill { white-space:nowrap; display:inline-flex; align-items:center; min-height:40px; padding:0 22px; border-radius:999px; background:var(--cream); color:var(--green); font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; transition:background .3s ease, transform .3s ease, box-shadow .3s ease; }
         .pill:hover { background:#fff; transform:translateY(-2px); box-shadow:0 6px 16px rgba(18,63,49,.25); }
         .bag { position:relative; width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center; transition:transform .3s ease; }
         .bag:hover { transform:translateY(-2px) scale(1.1); }
         .bag span { position:absolute; top:3px; right:0; font-size:.7rem; font-weight:500; }
 
         /* featured carousel */
-        .featured { position:relative; padding:72px 0 64px; }
+        .featured { position:relative; padding:72px 0 64px; overflow-x:clip; }
         .watermark { position:absolute; top:8px; left:0; right:0; text-align:center; font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(5rem,12vw,10.5rem); line-height:1; letter-spacing:.04em; color:var(--green); opacity:.06; white-space:nowrap; pointer-events:none; user-select:none; }
         .f-head { position:relative; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:40px; }
         .f-head h1 { font-size:clamp(2.2rem,4.4vw,3.3rem); color:var(--green); max-width:760px; }
@@ -270,6 +270,7 @@
             header nav { padding-left:max(20px, env(safe-area-inset-left)); padding-right:max(20px, env(safe-area-inset-right)); }
             .nav-right { gap:6px; }
             .pill { min-height:44px; }
+            .watermark { font-size:15vw; }
             .burger { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:0; background:transparent; color:#fff; border-radius:50%; }
             .burger:active { background:rgba(255,255,255,.15); }
             .mmenu:not([hidden]) { display:flex; flex-direction:column; padding:8px 20px 16px; border-top:1px solid rgba(255,255,255,.14); }
@@ -287,6 +288,15 @@
             .logo .name { font-size:1.15rem; letter-spacing:.1em; }
             .badge { width:46px; height:46px; }
             .logo { gap:10px; }
+        }
+        @media (max-width:420px) {
+            header nav { gap:8px; }
+            .logo { gap:8px; min-width:0; }
+            .logo .name { font-size:.95rem; letter-spacing:.06em; }
+            .badge { width:42px; height:42px; }
+            .nav-right { gap:2px; }
+            .pill { padding:0 12px; font-size:.68rem; letter-spacing:.1em; }
+            .burger { width:40px; }
         }
     </style>
 </head>
