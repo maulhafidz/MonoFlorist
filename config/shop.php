@@ -2,8 +2,8 @@
 
 return [
     'name' => env('SHOP_NAME', 'MonoFlorist'),
-    'tagline' => 'Handmade artificial flower bouquets that last. Pre-order on WhatsApp.',
-    'tagline_builder' => 'Build your own artificial flower bouquet, stem by stem. Made to order.',
+    'tagline' => 'Handmade chenille flower bouquets that never wilt. Pre-order on WhatsApp.',
+    'tagline_builder' => 'Build your own handmade chenille bouquet, stem by stem. Made to order.',
 
     // false = showcase only: every Pre-Order button opens WhatsApp directly.
     // true  = full bouquet builder (pick stems, wrapping, date, total, then send to WhatsApp).
@@ -91,7 +91,7 @@ return [
     // Practical info strip.
     'info' => [
         ['title' => 'Lead time',  'text' => 'Please order at least 2 days ahead.'],
-        ['title' => 'Pickup',     'text' => 'Collect from our studio. Details shared on WhatsApp.'],
+        ['title' => 'Find us',    'text' => 'Visit our booth at Binus University. Pickup details shared on WhatsApp.'],
         ['title' => 'Delivery',   'text' => 'Local delivery available. Fee confirmed on WhatsApp.'],
     ],
 
@@ -103,6 +103,8 @@ return [
         ['q' => 'Can you add a card message?', 'a' => 'Yes. Write it in the notes field and we will include a handwritten card.'],
     ],
 
+    // Where customers can find you (shown in the footer). Add the campus or booth number here.
+    'location' => 'Binus University',
     'instagram' => '@monoflorist.id',
     'phone' => '0857-5964-0508',
 

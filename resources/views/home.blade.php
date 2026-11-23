@@ -22,10 +22,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>{{ $shop }} — {{ $builder ? 'Build Your Own Bouquet' : 'Artificial Flower Bouquets' }}</title>
     <meta name="description" content="{{ $tagline }}">
-    <meta name="theme-color" content="#4F6E62">
+    <meta name="theme-color" content="#3F5C50">
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $shop }} — {{ $builder ? 'Build Your Own Bouquet' : 'Artificial Flower Bouquets' }}">
     <meta property="og:description" content="{{ $tagline }}">
@@ -58,9 +58,9 @@
         .btn[aria-disabled="true"] { opacity:.4; pointer-events:none; }
 
         /* header */
-        header { background:rgba(79,110,98,.68); -webkit-backdrop-filter:blur(16px) saturate(1.3); backdrop-filter:blur(16px) saturate(1.3);
+        header { background:rgba(63,92,80,.86); -webkit-backdrop-filter:blur(16px) saturate(1.3); backdrop-filter:blur(16px) saturate(1.3);
                  border-bottom:1px solid rgba(255,255,255,.14); color:#fff; position:sticky; top:0; z-index:20; }
-        @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { header { background:var(--sage); } }
+        @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { header { background:#3F5C50; } }
         header nav { max-width:1440px; margin:0 auto; padding:16px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
         .nav-side { display:flex; gap:44px; align-items:center; flex:1 1 0; }
         .nav-right { display:flex; gap:28px; align-items:center; justify-content:flex-end; flex:1 1 0; }
@@ -85,7 +85,8 @@
         .featured { position:relative; padding:72px 0 64px; }
         .watermark { position:absolute; top:8px; left:0; right:0; text-align:center; font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(5rem,12vw,10.5rem); line-height:1; letter-spacing:.04em; color:var(--green); opacity:.06; white-space:nowrap; pointer-events:none; user-select:none; }
         .f-head { position:relative; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:40px; }
-        .f-head h1 { font-size:clamp(2.2rem,4.4vw,3.3rem); color:var(--green); }
+        .f-head h1 { font-size:clamp(2.2rem,4.4vw,3.3rem); color:var(--green); max-width:760px; }
+        .f-sub { margin-top:14px; max-width:560px; color:var(--soft); font-size:1.05rem; }
         .f-head a { font-size:.9rem; letter-spacing:.14em; text-underline-offset:6px; text-decoration:underline; min-height:44px; display:inline-flex; align-items:center; text-transform:uppercase; }
         .stage { position:relative; display:flex; align-items:flex-start; justify-content:center; gap:48px; }
         .card { position:relative; flex:1 1 0; min-width:0; max-width:440px; height:480px; padding:0; border:0; border-radius:6px; overflow:hidden; background:var(--forest); box-shadow:0 6px 18px rgba(18,63,49,.18); text-align:left; color:var(--cream); transition:transform .5s ease, box-shadow .5s ease; }
@@ -209,6 +210,7 @@
         footer .circle { width:52px; height:52px; border-radius:50%; background:var(--gold); color:#fff; display:inline-flex; align-items:center; justify-content:center; transition:background .2s; }
         footer .circle:hover, footer .tel:hover { background:#6f532d; }
         footer .tel { height:52px; padding:0 28px; border-radius:999px; background:var(--gold); color:#fff; display:inline-flex; align-items:center; gap:10px; font-size:1rem; letter-spacing:.06em; transition:background .2s; }
+        footer .loc { display:flex; align-items:center; gap:8px; margin-top:12px; font-size:.92rem; color:var(--soft); }
         footer .copy { margin-top:28px; font-size:.8rem; color:var(--muted); text-align:center; }
 
         /* mobile order bar */
@@ -255,6 +257,37 @@
             .prog { flex:1 1 100%; }
             .pill { padding:0 16px; }
         }
+        /* ---------- mobile only (desktop look is unchanged) ---------- */
+        .burger, .mmenu { display:none; }
+        .burger .i-close { display:none; }
+        .burger[aria-expanded="true"] .i-open { display:none; }
+        .burger[aria-expanded="true"] .i-close { display:block; }
+        .stage { touch-action:pan-y; }
+        .mbar { padding-bottom:calc(12px + env(safe-area-inset-bottom)); }
+
+        @media (max-width:860px) {
+            header { -webkit-backdrop-filter:blur(10px) saturate(1.2); backdrop-filter:blur(10px) saturate(1.2); }
+            header nav { padding-left:max(20px, env(safe-area-inset-left)); padding-right:max(20px, env(safe-area-inset-right)); }
+            .nav-right { gap:6px; }
+            .pill { min-height:44px; }
+            .burger { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:0; background:transparent; color:#fff; border-radius:50%; }
+            .burger:active { background:rgba(255,255,255,.15); }
+            .mmenu:not([hidden]) { display:flex; flex-direction:column; padding:8px 20px 16px; border-top:1px solid rgba(255,255,255,.14); }
+            .mmenu a { display:flex; align-items:center; min-height:52px; font-size:1rem; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid rgba(255,255,255,.1); }
+            .mmenu a:last-child { border-bottom:0; }
+            .stepper button { width:40px; height:40px; }
+            .summary .clear { min-height:44px; }
+        }
+        @media (max-width:520px) {
+            .flowers { grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+            .flower .info { padding:10px 12px 14px; }
+            .flower h3 { font-size:1.2rem; }
+            .flower .price { font-size:.76rem; }
+            .flower .note { font-size:.74rem; line-height:1.4; }
+            .logo .name { font-size:1.15rem; letter-spacing:.1em; }
+            .badge { width:46px; height:46px; }
+            .logo { gap:10px; }
+        }
     </style>
 </head>
 <body>
@@ -283,8 +316,19 @@
                     <span id="navCount">0</span>
                 </a>
                 @endif
+                <button type="button" class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu">
+                    <svg class="i-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                    <svg class="i-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
             </div>
         </nav>
+        <div class="mmenu" id="mmenu" hidden>
+            <a href="#designs">Designs</a>
+            <a href="{{ $builder ? '#build' : '#flowers' }}">{{ $builder ? 'Build' : 'Flowers' }}</a>
+            <a href="#how">How it works</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+        </div>
     </header>
 
     <!-- Featured designs carousel -->
@@ -293,8 +337,9 @@
         <div class="wrap">
             <div class="f-head head-r">
                 <div>
-                    <span class="eyebrow">Featured bouquets</span>
-                    <h1 id="featured-title">Arrangements, made by hand</h1>
+                    <span class="eyebrow">Handmade chenille flowers</span>
+                    <h1 id="featured-title">Flowers that never wilt, made by hand</h1>
+                    <p class="f-sub">Soft, lifelike bouquets crafted stem by stem from chenille. Choose a bouquet below and pre-order on WhatsApp.</p>
                 </div>
                 @if ($builder)
                     <a href="#build">Build your own</a>
@@ -524,6 +569,12 @@
                         <span class="badge"><img src="{{ asset(config('shop.logo')) }}" alt="" width="56" height="56"></span>
                         <span class="brand">{{ $shop }}</span>
                     </span>
+                    @if (config('shop.location'))
+                        <p class="loc">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                            Find us at {{ config('shop.location') }}
+                        </p>
+                    @endif
                 </div>
                 <div class="soc">
                     @if (config('shop.facebook_url'))
@@ -769,7 +820,39 @@
                 });
             });
 
+            // swipe left/right on the carousel (touch screens only)
+            var tx = 0, ty = 0, tracking = false;
+            stage.addEventListener('touchstart', function (e) {
+                if (e.touches.length !== 1) return;
+                tx = e.touches[0].clientX; ty = e.touches[0].clientY; tracking = true;
+            }, { passive: true });
+            stage.addEventListener('touchend', function (e) {
+                if (!tracking) return;
+                tracking = false;
+                var t = e.changedTouches[0];
+                var dx = t.clientX - tx, dy = t.clientY - ty;
+                if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? idx(1) : idx(-1));
+            }, { passive: true });
+
             draw();
+        })();
+    </script>
+
+    <script>
+        /* ---------- mobile menu ---------- */
+        (function () {
+            var btn = document.getElementById('burger');
+            var menu = document.getElementById('mmenu');
+            if (!btn || !menu) return;
+            function setOpen(open) {
+                menu.hidden = !open;
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            }
+            btn.addEventListener('click', function () { setOpen(menu.hidden); });
+            menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+            window.addEventListener('resize', function () { if (window.innerWidth > 860) setOpen(false); });
         })();
     </script>
 
@@ -780,8 +863,10 @@
             var els = Array.prototype.slice.call(document.querySelectorAll(sel));
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-            var ZONE = 0.3;    // fade band = 30% of viewport height at top and bottom edges
-            var SHIFT = 18;    // px drift while fading
+            // Fade-in only: content softly appears as it rises into view from the bottom edge,
+            // and stays fully visible once it is on screen (nothing fades out at the top while reading).
+            var ZONE = 0.22;   // fade band = 22% of viewport height at the bottom edge
+            var SHIFT = 14;    // px drift while fading in
             var EASE = 0.1;    // 0-1: lower = slower, silkier catch-up toward the target
             var running = false;
 
@@ -797,17 +882,15 @@
                 // near the page ends, extend the visible area so the first/last items never stay faded
                 var remaining = document.documentElement.scrollHeight - (window.scrollY + vh);
                 var extra = Math.max(0, zone - remaining);
-                var topExtra = Math.max(0, zone - window.scrollY);
                 var moving = false;
 
                 for (var k = 0; k < st.length; k++) {
                     var s = st[k];
                     var r = s.el.getBoundingClientRect();
                     var c = r.top + r.height / 2;
-                    var top = curve(clamp((c + topExtra) / zone));
                     var bottom = curve(clamp((vh + extra - c) / zone));
-                    var to = Math.min(top, bottom);
-                    var ty = c < vh / 2 ? -(1 - top) * SHIFT : (1 - bottom) * SHIFT;
+                    var to = bottom;
+                    var ty = (1 - bottom) * SHIFT;
 
                     if (!s.init) { s.o = to; s.y = ty; s.init = true; }   // no animation on first paint
                     else {
