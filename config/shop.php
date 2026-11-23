@@ -87,7 +87,6 @@ return [
         ['title' => 'Lead time',  'text' => 'Please order at least 2 days ahead.'],
         ['title' => 'Pickup',     'text' => 'Collect from our studio. Details shared on WhatsApp.'],
         ['title' => 'Delivery',   'text' => 'Local delivery available. Fee confirmed on WhatsApp.'],
-        ['title' => 'Hours',      'text' => 'Mon–Sat, 09:00–18:00.'],
     ],
 
     'faq' => [

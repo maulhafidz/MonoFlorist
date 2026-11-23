@@ -63,10 +63,6 @@
         .navlink::after { content:''; position:absolute; left:0; right:0; bottom:8px; height:1px; background:currentColor; transform:scaleX(0); transform-origin:center; transition:transform .35s cubic-bezier(.4,0,.2,1); }
         .navlink:hover, .navlink:focus-visible { transform:translateY(-2px); }
         .navlink:hover::after, .navlink:focus-visible::after { transform:scaleX(1); }
-        .logo .badge { transition:transform .5s cubic-bezier(.4,0,.2,1), box-shadow .5s ease; }
-        .logo:hover .badge { transform:rotate(-6deg) scale(1.06); box-shadow:0 6px 18px rgba(18,63,49,.35); }
-        .logo .name { transition:letter-spacing .4s ease; }
-        .logo:hover .name { letter-spacing:.16em; }
         .logo { display:flex; align-items:center; gap:14px; flex:0 0 auto; }
         .badge { width:68px; height:68px; border-radius:50%; overflow:hidden; background:#FBFAF5; flex:0 0 auto; box-shadow:0 2px 10px rgba(18,63,49,.25); }
         .badge img { width:100%; height:100%; display:block; object-fit:cover; transform:scale(1.38); }
@@ -183,7 +179,7 @@
         .story p { font-size:1.08rem; line-height:1.7; color:#DCE7E1; max-width:640px; }
 
         /* info + faq */
-        .info-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; text-align:center; }
+        .info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:32px; text-align:center; }
         .info-item h3 { font-size:1.55rem; font-weight:600; color:var(--green); margin-bottom:6px; }
         .info-item p { color:var(--soft); font-size:.95rem; }
         .faq { max-width:760px; margin:0 auto; }
