@@ -355,7 +355,7 @@
                 </button>
                 <button type="button" class="card main" id="cardC" aria-label="Use this design">
                     <div class="art">@include('partials.bouquet', ['h' => 340])</div>
-                    <span class="meta"><span class="nm"></span><span class="pr"></span><span class="go">Pre-order this bouquet</span></span>
+                    <span class="meta"><span class="nm"></span><span class="pr"></span><span class="go">Ask about this bouquet</span></span>
                 </button>
                 <button type="button" class="card side" id="cardR" aria-label="Show next design">
                     <div class="art">@include('partials.bouquet', ['h' => 320])</div>
@@ -765,9 +765,9 @@
                 }
                 el.querySelector('.nm').textContent = s.name;
                 var p = el.querySelector('.pr');
-                if (p) { p.textContent = s.price ? 'FROM ' + rp(s.price) : ''; p.hidden = !s.price; }
+                if (p) { p.textContent = s.price ? 'STARTING AT ' + rp(s.price) : ''; p.hidden = !s.price; }
                 var g = el.querySelector('.go');
-                if (g) g.textContent = (builder && s.mix) ? 'Start with this design' : 'Pre-order this bouquet';
+                if (g) g.textContent = (builder && s.mix) ? 'Start with this design' : 'Ask about this bouquet';
             }
 
             C.forEach(function (s, j) {
@@ -783,7 +783,7 @@
                 paint(cards.l, C[idx(-1)]);
                 paint(cards.c, C[i]);
                 paint(cards.r, C[idx(1)]);
-                cards.c.setAttribute('aria-label', 'Pre-order the ' + C[i].name + ' bouquet');
+                cards.c.setAttribute('aria-label', 'Ask about the ' + C[i].name + ' bouquet');
                 Array.prototype.forEach.call(dotsEl.children, function (b, j) { b.classList.toggle('on', j === i); });
                 document.getElementById('count').textContent = String(i + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
                 document.getElementById('fill').style.width = ((i + 1) / n * 100).toFixed(2) + '%';
@@ -809,7 +809,7 @@
             cards.c.addEventListener('click', function () {
                 // designs with a flower mix open the builder; photo bouquets go straight to WhatsApp
                 if (window.Bouquet && C[i].mix) window.Bouquet.apply(C[i].mix, '');
-                else whatsapp('Hi ' + shop + ', I would like to pre-order the "' + C[i].name + '" bouquet.');
+                else whatsapp('Hi ' + shop + ', I am interested in the "' + C[i].name + '" bouquet. Could you tell me more?');
             });
 
             document.querySelectorAll('.occ').forEach(function (btn) {

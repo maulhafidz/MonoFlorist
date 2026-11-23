@@ -53,7 +53,7 @@ return [
     ],
 
     // Finished bouquets shown first in the carousel (photo file inside public/images/bouquets).
-    // price: set a number (rupiah) to show "FROM Rp ...", or leave null to hide the price.
+    // price: set a number (rupiah) to show "STARTING AT Rp ...", or leave null to hide the price.
     'bouquets' => [
         ['name' => 'Pink Ribbon',      'desc' => 'Pink blossoms in clear wrap with a satin ribbon.',                   'image' => 'pink-ribbon.jpg',      'price' => null],
         ['name' => 'Lily Posy',        'desc' => 'Pink and magenta lilies in a soft ivory wrap.',                      'image' => 'lily-posy.jpg',        'price' => null],
