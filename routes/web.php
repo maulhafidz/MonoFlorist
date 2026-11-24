@@ -7,7 +7,6 @@ Route::get('/', fn () => view('home', [
     'preorderUrl' => config('shop.preorder_url'),
     'flowers' => config('shop.flowers'),
     'wrappings' => config('shop.wrappings'),
-    'testimonials' => config('shop.testimonials'),
     'instagram' => config('shop.instagram'),
     'phone' => config('shop.phone'),
 ]))->name('home');

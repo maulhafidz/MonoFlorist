@@ -57,7 +57,7 @@ return [
     // price: set a number (rupiah) to show "STARTING AT Rp ...", or leave null to hide the price.
     'bouquets' => [
         ['name' => 'Roselle Pipe Bouquet', 'desc' => 'Pink blossoms in clear wrap with a satin ribbon.',                   'image' => 'pink-ribbon.jpg',      'price' => null],
-        ['name' => 'Lily and Lilac Bouquet', 'desc' => 'Pink and magenta lilies in a soft ivory wrap.',                      'image' => 'lily-posy.jpg',        'price' => null],
+        ['name' => 'Lily & Lilac Bouquet', 'desc' => 'Pink and magenta lilies in a soft ivory wrap.',                      'image' => 'lily-posy.jpg',        'price' => null],
         ['name' => 'Ethereal Butterfly Bouquet', 'desc' => 'Blue, pink and purple lilies with white roses and a gold butterfly.', 'image' => 'butterfly-garden.jpg', 'price' => null],
     ],
 
@@ -109,10 +109,4 @@ return [
     'instagram' => '@monoflorist.id',
     'phone' => '0857-5964-0508',
 
-    'testimonials' => [
-        // 'name' is the quote's author.
-        ['name' => 'Ralph Waldo Emerson', 'quote' => 'The earth laughs in flowers.'],
-        ['name' => 'Claude Monet',        'quote' => 'I must have flowers, always, and always.'],
-        ['name' => 'Lady Bird Johnson',   'quote' => 'Where flowers bloom, so does hope.'],
-    ],
 ];

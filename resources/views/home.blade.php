@@ -172,10 +172,6 @@
         .step h3 { font-size:1.65rem; font-weight:600; color:var(--green); margin-bottom:6px; }
         .step p { color:var(--soft); max-width:300px; margin:0 auto; }
 
-        /* testimonials */
-        .quotes { display:grid; grid-template-columns:repeat(3,1fr); gap:48px; text-align:center; }
-        .quote q { display:block; font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:500; font-style:italic; line-height:1.4; quotes:none; color:var(--green); }
-        .quote cite { display:block; margin-top:16px; text-transform:uppercase; letter-spacing:.2em; font-size:.74rem; font-style:normal; color:var(--muted); }
 
         /* story */
         .story { background:var(--forest); color:var(--cream); padding:96px 0; }
@@ -237,7 +233,7 @@
             header nav { padding:14px 20px; }
             .nav-side, .nav-right .navlink { display:none; }
             .occ-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-            .steps, .quotes { grid-template-columns:1fr; }
+            .steps { grid-template-columns:1fr; }
             section { padding:64px 0; }
             .featured { padding:48px 0 48px; }
             .badge { width:52px; height:52px; }
@@ -525,18 +521,6 @@
         </div>
     </section>
 
-    <section aria-labelledby="quotes-title">
-        <div class="wrap">
-            <div class="head">
-                <span class="eyebrow">In bloom</span>
-                <h2 id="quotes-title">Words on Flowers</h2>
-            </div>
-            <div class="quotes">
-                @foreach ($testimonials as $t)
-                    <div class="quote"><q>{{ $t['quote'] }}</q><cite>— {{ $t['name'] }}</cite></div>
-                @endforeach
-            </div>
-        </div>
     </section>
 
     <section class="story" aria-labelledby="story-title">
@@ -834,7 +818,7 @@
     <script>
         /* ---------- scroll fade ---------- */
         (function () {
-            var sel = '.f-head, .head, .occ, .flower, .step, .quote, .story .in > *, .info-item, .faq details, footer .row > *';
+            var sel = '.f-head, .head, .occ, .flower, .step, .story .in > *, .info-item, .faq details, footer .row > *';
             var els = Array.prototype.slice.call(document.querySelectorAll(sel));
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 

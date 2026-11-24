@@ -152,10 +152,6 @@
         .step h3 { font-size:1.65rem; font-weight:600; color:var(--green); margin-bottom:6px; }
         .step p { color:var(--soft); max-width:300px; margin:0 auto; }
 
-        /* testimonials */
-        .quotes { display:grid; grid-template-columns:repeat(3,1fr); gap:48px; text-align:center; }
-        .quote q { display:block; font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:500; font-style:italic; line-height:1.4; quotes:none; color:var(--green); }
-        .quote cite { display:block; margin-top:16px; text-transform:uppercase; letter-spacing:.2em; font-size:.74rem; font-style:normal; color:var(--muted); }
 
         /* story */
         .story { background:var(--forest); color:var(--cream); padding:96px 0; }
@@ -217,7 +213,7 @@
             header nav { padding:14px 20px; }
             .nav-side, .nav-right .navlink { display:none; }
             .occ-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-            .steps, .quotes { grid-template-columns:1fr; }
+            .steps { grid-template-columns:1fr; }
             section { padding:64px 0; }
             .featured { padding:48px 0 48px; }
             .badge { width:52px; height:52px; }
@@ -338,11 +334,11 @@
                         </article>
                                             <article class="slide" aria-roledescription="slide" aria-label="2 of 3">
                             <div class="photo">
-                                <img src="/images/bouquets/lily-posy.jpg" alt="Lily and Lilac Bouquet" draggable="false"  loading="lazy" >
+                                <img src="/images/bouquets/lily-posy.jpg" alt="Lily &amp; Lilac Bouquet" draggable="false"  loading="lazy" >
                             </div>
                             <div class="detail">
                                 <span class="eyebrow">Bouquet 2 of 3</span>
-                                <h2>Lily and Lilac Bouquet</h2>
+                                <h2>Lily &amp; Lilac Bouquet</h2>
                                 <p>Pink and magenta lilies in a soft ivory wrap.</p>
                                                                 <button type="button" class="btn btn-solid ask" data-i="1">Ask about this bouquet</button>
                             </div>
@@ -501,18 +497,6 @@
         </div>
     </section>
 
-    <section aria-labelledby="quotes-title">
-        <div class="wrap">
-            <div class="head">
-                <span class="eyebrow">In bloom</span>
-                <h2 id="quotes-title">Words on Flowers</h2>
-            </div>
-            <div class="quotes">
-                                    <div class="quote"><q>The earth laughs in flowers.</q><cite>— Ralph Waldo Emerson</cite></div>
-                                    <div class="quote"><q>I must have flowers, always, and always.</q><cite>— Claude Monet</cite></div>
-                                    <div class="quote"><q>Where flowers bloom, so does hope.</q><cite>— Lady Bird Johnson</cite></div>
-                            </div>
-        </div>
     </section>
 
     <section class="story" aria-labelledby="story-title">
@@ -580,7 +564,7 @@
     <script>
         /* ---------- design carousel + occasion tiles ---------- */
         (function () {
-            var C = [{"name":"Roselle Pipe Bouquet","desc":"Pink blossoms in clear wrap with a satin ribbon.","price":null,"mix":null,"image":"\/images\/bouquets\/pink-ribbon.jpg"},{"name":"Lily and Lilac Bouquet","desc":"Pink and magenta lilies in a soft ivory wrap.","price":null,"mix":null,"image":"\/images\/bouquets\/lily-posy.jpg"},{"name":"Ethereal Butterfly Bouquet","desc":"Blue, pink and purple lilies with white roses and a gold butterfly.","price":null,"mix":null,"image":"\/images\/bouquets\/butterfly-garden.jpg"}];     // one slide per bouquet
+            var C = [{"name":"Roselle Pipe Bouquet","desc":"Pink blossoms in clear wrap with a satin ribbon.","price":null,"mix":null,"image":"\/images\/bouquets\/pink-ribbon.jpg"},{"name":"Lily \u0026 Lilac Bouquet","desc":"Pink and magenta lilies in a soft ivory wrap.","price":null,"mix":null,"image":"\/images\/bouquets\/lily-posy.jpg"},{"name":"Ethereal Butterfly Bouquet","desc":"Blue, pink and purple lilies with white roses and a gold butterfly.","price":null,"mix":null,"image":"\/images\/bouquets\/butterfly-garden.jpg"}];     // one slide per bouquet
             var S = [{"name":"Ivory Morning","desc":"White daisies with soft blue and pink lilies.","c1":"#F4F1E6","c2":"#E8E4D2","c3":"#C9C7A8","leaf":"#5E7F5A","mix":{"Daisy":6,"Sky Lily":2,"Blush Lily":2},"price":84000},{"name":"Blush Letter","desc":"Pink lilies and petunias with white daisies.","c1":"#F2C9C4","c2":"#E8A6A0","c3":"#F7E3DA","leaf":"#56785A","mix":{"Blush Lily":4,"Blush Petunia":4,"Daisy":2},"price":108000},{"name":"Marigold Hour","desc":"Sunny yellow lilies with daisies and bluebells.","c1":"#F0B04A","c2":"#E58A3A","c3":"#F6D58A","leaf":"#4F7350","mix":{"Sunshine Lily":5,"Daisy":4,"Bluebell":2},"price":96000},{"name":"Lilac Field","desc":"Violet lilies, bluebells and a few daisies.","c1":"#C7B3E0","c2":"#A68CCB","c3":"#EDE3F6","leaf":"#5B7A62","mix":{"Violet Lily":5,"Bluebell":3,"Daisy":2},"price":104000},{"name":"Wild Meadow","desc":"A little of everything, loosely tied.","c1":"#F4EEDC","c2":"#E9A26B","c3":"#B7A3D6","leaf":"#6A8A55","mix":{"Daisy":4,"Sunshine Lily":2,"Violet Lily":2,"Blush Petunia":2},"price":94000},{"name":"Sky Garden","desc":"Cool blues with white daisies.","c1":"#CFE6F2","c2":"#9CC9E4","c3":"#EAF4FA","leaf":"#3F6A4E","mix":{"Sky Lily":4,"Bluebell":4,"Daisy":3},"price":97000}];     // starters only (occasion tiles point into this list)
             var O = [{"name":"Birthday","desc":"Bright, generous bunches, ready to brighten any table.","starter":2,"icon":"\u003Crect x=\u00224\u0022 y=\u002211\u0022 width=\u002216\u0022 height=\u00229\u0022 rx=\u00221.5\u0022\/\u003E\u003Cpath d=\u0022M4 15h16M12 11V7M12 7c-1.5-1-1.5-3 0-4 1.5 1 1.5 3 0 4z\u0022\/\u003E"},{"name":"Anniversary","desc":"Roses and garden-style blooms, wrapped with a handwritten card.","starter":1,"icon":"\u003Cpath d=\u0022M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z\u0022\/\u003E"},{"name":"Sympathy","desc":"Soft whites and greens, a keepsake that stays with them.","starter":0,"icon":"\u003Cpath d=\u0022M12 21V11M12 11c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c3 0 5-2 5-5-3 0-5 2-5 5zM12 15c-2.5 0-4-1.5-4-3.5\u0022\/\u003E"},{"name":"Just because","desc":"A studio favorite, made to be kept for years.","starter":4,"icon":"\u003Ccircle cx=\u002212\u0022 cy=\u00229\u0022 r=\u00223\u0022\/\u003E\u003Cpath d=\u0022M12 6V3M12 15v6M9 9H6M18 9h-3M9.9 6.9 8 5M14.1 6.9 16 5\u0022\/\u003E"}];
             var baseUrl = "https:\/\/wa.me\/6285759640508";
@@ -674,7 +658,7 @@
     <script>
         /* ---------- scroll fade ---------- */
         (function () {
-            var sel = '.f-head, .head, .occ, .flower, .step, .quote, .story .in > *, .info-item, .faq details, footer .row > *';
+            var sel = '.f-head, .head, .occ, .flower, .step, .story .in > *, .info-item, .faq details, footer .row > *';
             var els = Array.prototype.slice.call(document.querySelectorAll(sel));
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
