@@ -2,8 +2,8 @@
 
 return [
     'name' => env('SHOP_NAME', 'MonoFlorist'),
-    'tagline' => 'Handmade chenille flower bouquets that never wilt. Pre-order on WhatsApp.',
-    'tagline_builder' => 'Build your own handmade chenille bouquet, stem by stem. Made to order.',
+    'tagline' => 'Handmade pipe cleaner flower bouquets that never wilt. Pre-order on WhatsApp.',
+    'tagline_builder' => 'Build your own handmade pipe cleaner bouquet, stem by stem. Made to order.',
 
     // false = showcase only: every Pre-Order button opens WhatsApp directly.
     // true  = full bouquet builder (pick stems, wrapping, date, total, then send to WhatsApp).
@@ -11,7 +11,8 @@ return [
     'builder_enabled' => env('BUILDER_ENABLED', false),
 
     // First message when someone taps a Pre-Order button in showcase mode.
-    'whatsapp_greeting' => 'Hi, I would like to pre-order a bouquet.',
+    // Template message, fill in after the colons. Used by every WhatsApp button except carousel cards.
+    'whatsapp_greeting' => "Hi MonoFlorist, I would like to pre-order a bouquet.\n\nBouquet / flowers:\nQuantity:\nPickup date:\nNotes:",
 
     // Pre-order orders are sent here with the bouquet summary as the message.
     // WhatsApp link (number with country code, no + or spaces): https://wa.me/62812xxxxxxx
@@ -55,9 +56,9 @@ return [
     // Finished bouquets shown first in the carousel (photo file inside public/images/bouquets).
     // price: set a number (rupiah) to show "STARTING AT Rp ...", or leave null to hide the price.
     'bouquets' => [
-        ['name' => 'Pink Ribbon',      'desc' => 'Pink blossoms in clear wrap with a satin ribbon.',                   'image' => 'pink-ribbon.jpg',      'price' => null],
-        ['name' => 'Lily Posy',        'desc' => 'Pink and magenta lilies in a soft ivory wrap.',                      'image' => 'lily-posy.jpg',        'price' => null],
-        ['name' => 'Butterfly Garden', 'desc' => 'Blue, pink and purple lilies with white roses and a gold butterfly.', 'image' => 'butterfly-garden.jpg', 'price' => null],
+        ['name' => 'Roselle Pipe Bouquet', 'desc' => 'Pink blossoms in clear wrap with a satin ribbon.',                   'image' => 'pink-ribbon.jpg',      'price' => null],
+        ['name' => 'Lily and Lilac Bouquet', 'desc' => 'Pink and magenta lilies in a soft ivory wrap.',                      'image' => 'lily-posy.jpg',        'price' => null],
+        ['name' => 'Ethereal Butterfly Bouquet', 'desc' => 'Blue, pink and purple lilies with white roses and a gold butterfly.', 'image' => 'butterfly-garden.jpg', 'price' => null],
     ],
 
     // Ready-made starting points. mix = flower name => stems. Visitors can edit after picking one.
@@ -100,7 +101,7 @@ return [
         ['q' => 'How do I pay?', 'a' => 'After you send your pre-order we confirm the details on WhatsApp and share payment instructions.'],
         ['q' => 'Can I change or cancel my order?', 'a' => 'Changes are free up to 48 hours before your date. Please message us as early as you can.'],
         ['q' => 'How long will the bouquet last?', 'a' => 'Our flowers are artificial, so they do not wilt and need no water. Keep them out of direct sun and dust them gently to keep the colors bright.'],
-        ['q' => 'Can you add a card message?', 'a' => 'Yes. Write it in the notes field and we will include a handwritten card.'],
+        ['q' => 'Can you add a card message?', 'a' => 'Yes. Write your message in the WhatsApp chat when you pre-order and we will include it on a handwritten card.'],
     ],
 
     // Where customers can find you (shown in the footer). Add the campus or booth number here.

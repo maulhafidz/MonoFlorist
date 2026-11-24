@@ -10,7 +10,7 @@
         'name' => $b['name'], 'desc' => $b['desc'], 'price' => $b['price'], 'mix' => null,
         'image' => asset('images/bouquets/' . $b['image']),
     ])->all();
-    $carousel = array_merge($photoBouquets, $starters);
+    $carousel = $photoBouquets;
     $occasions = config('shop.occasions');
     $builder = config('shop.builder_enabled');
     $tagline = $builder ? config('shop.tagline_builder') : config('shop.tagline');
@@ -88,25 +88,19 @@
         .f-head h1 { font-size:clamp(2.2rem,4.4vw,3.3rem); color:var(--green); max-width:760px; }
         .f-sub { margin-top:14px; max-width:560px; color:var(--soft); font-size:1.05rem; }
         .f-head a { font-size:.9rem; letter-spacing:.14em; text-underline-offset:6px; text-decoration:underline; min-height:44px; display:inline-flex; align-items:center; text-transform:uppercase; }
-        .stage { position:relative; display:flex; align-items:flex-start; justify-content:center; gap:48px; }
-        .card { position:relative; flex:1 1 0; min-width:0; max-width:440px; height:480px; padding:0; border:0; border-radius:6px; overflow:hidden; background:var(--forest); box-shadow:0 6px 18px rgba(18,63,49,.18); text-align:left; color:var(--cream); transition:transform .5s ease, box-shadow .5s ease; }
-        .card.main { flex:1.15 1 0; max-width:500px; height:560px; box-shadow:0 18px 40px rgba(18,63,49,.28); }
-        .card:hover { transform:translateY(-4px); }
-        .card .art { position:absolute; inset:0; transition:opacity .3s ease; }
-        .card .meta { position:absolute; left:28px; right:28px; bottom:26px; display:flex; flex-direction:column; gap:6px; transition:opacity .3s ease; }
-        .card .nm { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.9rem; line-height:1.05; }
-        .card.main .nm { font-size:2.4rem; }
-        .card .pr { font-size:1rem; letter-spacing:.06em; }
-        .card .go { font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid rgba(251,247,241,.6); align-self:flex-start; padding-bottom:2px; margin-top:4px; }
-        .stage.swap .art, .stage.swap .meta { opacity:0; }
-        .card .ph { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.22); }
-        .card .ph[hidden] { display:none; }
-        .card.has-photo .bq { display:none; }
-        .card.has-photo { background:#E9E1D3; }
-        .card.has-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(18,63,49,.78), rgba(18,63,49,0) 48%); pointer-events:none; }
-        .card .meta { z-index:1; }
-        .bq .leaf { fill:var(--leaf); } .bq .c1 { fill:var(--c1); } .bq .c2 { fill:var(--c2); } .bq .c3 { fill:var(--c3); }
-        .controls { position:relative; display:flex; align-items:center; justify-content:space-between; gap:24px; margin-top:48px; flex-wrap:wrap; }
+        .slider { position:relative; }
+        .track { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; overscroll-behavior-x:contain; scrollbar-width:none; -webkit-overflow-scrolling:touch; outline-offset:6px; }
+        .track::-webkit-scrollbar { display:none; }
+        .slide { flex:0 0 100%; min-width:0; scroll-snap-align:center; scroll-snap-stop:always; display:grid; grid-template-columns:minmax(0,520px) minmax(0,420px); justify-content:center; align-items:center; gap:72px; padding:8px 0 28px; }
+        .photo { aspect-ratio:1; border-radius:6px; overflow:hidden; background:#E9E1D3; box-shadow:0 18px 40px rgba(18,63,49,.22); }
+        .photo img { width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.22); }
+        .detail { display:flex; flex-direction:column; align-items:flex-start; gap:10px; }
+        .detail .eyebrow { margin-bottom:0; }
+        .detail h2 { font-size:clamp(2.1rem,3.8vw,3.1rem); color:var(--green); }
+        .detail p { color:var(--soft); font-size:1.05rem; max-width:420px; }
+        .price-tag { font-size:.9rem; letter-spacing:.12em; color:var(--gold); }
+        .detail .btn { margin-top:12px; }
+        .controls { position:relative; display:flex; align-items:center; justify-content:space-between; gap:24px; margin-top:40px; flex-wrap:wrap; }
         .dots { display:flex; align-items:center; gap:4px; }
         .dots button { width:32px; height:44px; border:0; background:transparent; display:inline-flex; align-items:center; justify-content:center; padding:0; }
         .dots i { width:14px; height:14px; border-radius:50%; background:#A9C4B8; display:block; transition:background .3s, transform .3s; }
@@ -211,7 +205,6 @@
         footer .circle:hover, footer .tel:hover { background:#6f532d; }
         footer .tel { height:52px; padding:0 28px; border-radius:999px; background:var(--gold); color:#fff; display:inline-flex; align-items:center; gap:10px; font-size:1rem; letter-spacing:.06em; transition:background .2s; }
         footer .loc { display:flex; align-items:center; gap:8px; margin-top:12px; font-size:.92rem; color:var(--soft); }
-        footer .copy { margin-top:28px; font-size:.8rem; color:var(--muted); text-align:center; }
 
         /* mobile order bar */
         .mbar { display:none; position:fixed; left:0; right:0; bottom:0; z-index:30; background:rgba(251,247,241,.96); backdrop-filter:blur(8px);
@@ -227,7 +220,8 @@
         .js .reveal { will-change:opacity, translate; }
         @media (prefers-reduced-motion:reduce) {
             .js .reveal { transition:none; }
-            .card, .card .art, .card .meta, .bar-fill { transition:none; }
+            .bar-fill { transition:none; }
+            .track { scroll-behavior:auto; }
             html { scroll-behavior:auto; }
         }
 
@@ -242,8 +236,6 @@
             .wrap { padding:0 24px; }
             header nav { padding:14px 20px; }
             .nav-side, .nav-right .navlink { display:none; }
-            .card.side { display:none; }
-            .card.main { max-width:none; height:480px; }
             .occ-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
             .steps, .quotes { grid-template-columns:1fr; }
             section { padding:64px 0; }
@@ -262,7 +254,6 @@
         .burger .i-close { display:none; }
         .burger[aria-expanded="true"] .i-open { display:none; }
         .burger[aria-expanded="true"] .i-close { display:block; }
-        .stage { touch-action:pan-y; }
         .mbar { padding-bottom:calc(12px + env(safe-area-inset-bottom)); }
 
         @media (max-width:860px) {
@@ -271,6 +262,10 @@
             .nav-right { gap:6px; }
             .pill { min-height:44px; }
             .watermark { font-size:15vw; }
+            .slide { grid-template-columns:minmax(0,1fr); gap:22px; padding-bottom:16px; }
+            .photo { width:100%; max-width:520px; margin:0 auto; }
+            .detail { align-items:center; text-align:center; }
+            .detail p { max-width:none; }
             .burger { display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border:0; background:transparent; color:#fff; border-radius:50%; }
             .burger:active { background:rgba(255,255,255,.15); }
             .mmenu:not([hidden]) { display:flex; flex-direction:column; padding:8px 20px 16px; border-top:1px solid rgba(255,255,255,.14); }
@@ -347,9 +342,9 @@
         <div class="wrap">
             <div class="f-head head-r">
                 <div>
-                    <span class="eyebrow">Handmade chenille flowers</span>
+                    <span class="eyebrow">Handmade pipe cleaner flowers</span>
                     <h1 id="featured-title">Flowers that never wilt, made by hand</h1>
-                    <p class="f-sub">Soft, lifelike bouquets crafted stem by stem from chenille. Choose a bouquet below and pre-order on WhatsApp.</p>
+                    <p class="f-sub">Soft, lifelike bouquets crafted stem by stem from pipe cleaners. Choose a bouquet below and pre-order on WhatsApp.</p>
                 </div>
                 @if ($builder)
                     <a href="#build">Build your own</a>
@@ -358,29 +353,35 @@
                 @endif
             </div>
 
-            <div class="stage" id="stage">
-                <button type="button" class="card side" id="cardL" aria-label="Show previous design">
-                    <div class="art">@include('partials.bouquet', ['h' => 320])</div>
-                    <span class="meta"><span class="nm"></span></span>
-                </button>
-                <button type="button" class="card main" id="cardC" aria-label="Use this design">
-                    <div class="art">@include('partials.bouquet', ['h' => 340])</div>
-                    <span class="meta"><span class="nm"></span><span class="pr"></span><span class="go">Ask about this bouquet</span></span>
-                </button>
-                <button type="button" class="card side" id="cardR" aria-label="Show next design">
-                    <div class="art">@include('partials.bouquet', ['h' => 320])</div>
-                    <span class="meta"><span class="nm"></span></span>
-                </button>
+            <div class="slider" aria-roledescription="carousel" aria-label="Featured bouquets">
+                <div class="track" id="track" tabindex="0">
+                    @foreach ($carousel as $b)
+                        <article class="slide" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ $loop->count }}">
+                            <div class="photo">
+                                <img src="{{ $b['image'] }}" alt="{{ $b['name'] }}" draggable="false" @if (! $loop->first) loading="lazy" @endif>
+                            </div>
+                            <div class="detail">
+                                <span class="eyebrow">Bouquet {{ $loop->iteration }} of {{ $loop->count }}</span>
+                                <h2>{{ $b['name'] }}</h2>
+                                <p>{{ $b['desc'] }}</p>
+                                @if ($b['price'])
+                                    <span class="price-tag">STARTING AT Rp {{ number_format($b['price'], 0, ',', '.') }}</span>
+                                @endif
+                                <button type="button" class="btn btn-solid ask" data-i="{{ $loop->index }}">Ask about this bouquet</button>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
             </div>
 
             <div class="controls">
                 <div class="dots" id="dots"></div>
                 <div class="prog">
-                    <span class="count" id="count">01 / 06</span>
+                    <span class="count" id="count">01 / 01</span>
                     <div class="bar-track"><div class="bar-fill" id="fill"></div></div>
                     <div class="arrows">
-                        <button type="button" class="arrow" id="prev" aria-label="Previous design"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
-                        <button type="button" class="arrow fill" id="next" aria-label="Next design"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+                        <button type="button" class="arrow" id="prev" aria-label="Previous bouquet"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+                        <button type="button" class="arrow fill" id="next" aria-label="Next bouquet"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
                     </div>
                 </div>
             </div>
@@ -597,13 +598,12 @@
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/></svg>
                         </a>
                     @endif
-                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}" class="tel">
+                    <a href="{{ $waUrl }}" class="tel" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
                         {{ $phone }}
                     </a>
                 </div>
             </div>
-            <p class="copy">© {{ date('Y') }} {{ $shop }}. All rights reserved.</p>
         </div>
     </footer>
 
@@ -740,10 +740,9 @@
     <script>
         /* ---------- design carousel + occasion tiles ---------- */
         (function () {
-            var C = @json($carousel);     // carousel items: photo bouquets first, then illustrated starters
+            var C = @json($carousel);     // one slide per bouquet
             var S = @json($starters);     // starters only (occasion tiles point into this list)
             var O = @json($occasions);
-            var builder = @json($builder);
             var baseUrl = @json($preorderUrl);
             var shop = @json($shop);
 
@@ -752,33 +751,14 @@
                 var url = baseUrl + (baseUrl.indexOf('?') > -1 ? '&' : '?') + 'text=' + encodeURIComponent(text);
                 window.open(url, '_blank', 'noopener');
             }
+
+            var track = document.getElementById('track');
+            var dotsEl = document.getElementById('dots');
+            var countEl = document.getElementById('count');
+            var fillEl = document.getElementById('fill');
             var n = C.length;
             var i = 0;
-            var stage = document.getElementById('stage');
-            var cards = { l: document.getElementById('cardL'), c: document.getElementById('cardC'), r: document.getElementById('cardR') };
-            var dotsEl = document.getElementById('dots');
-            var busy = false;
-
-            function rp(v) { return 'Rp ' + v.toLocaleString('id-ID'); }
-            function idx(k) { return (i + k + n) % n; }
-
-            function paint(el, s) {
-                var photo = !!s.image;
-                el.classList.toggle('has-photo', photo);
-                var ph = el.querySelector('.ph');
-                if (photo) { ph.src = s.image; ph.hidden = false; } else { ph.hidden = true; ph.removeAttribute('src'); }
-                if (!photo) {
-                    el.style.setProperty('--c1', s.c1);
-                    el.style.setProperty('--c2', s.c2);
-                    el.style.setProperty('--c3', s.c3);
-                    el.style.setProperty('--leaf', s.leaf);
-                }
-                el.querySelector('.nm').textContent = s.name;
-                var p = el.querySelector('.pr');
-                if (p) { p.textContent = s.price ? 'STARTING AT ' + rp(s.price) : ''; p.hidden = !s.price; }
-                var g = el.querySelector('.go');
-                if (g) g.textContent = (builder && s.mix) ? 'Start with this design' : 'Ask about this bouquet';
-            }
+            var ticking = false;
 
             C.forEach(function (s, j) {
                 var b = document.createElement('button');
@@ -789,37 +769,36 @@
                 dotsEl.appendChild(b);
             });
 
-            function draw() {
-                paint(cards.l, C[idx(-1)]);
-                paint(cards.c, C[i]);
-                paint(cards.r, C[idx(1)]);
-                cards.c.setAttribute('aria-label', 'Ask about the ' + C[i].name + ' bouquet');
+            // reflect the slide currently snapped into view
+            function sync() {
+                ticking = false;
+                var w = track.clientWidth || 1;
+                i = Math.max(0, Math.min(n - 1, Math.round(track.scrollLeft / w)));
                 Array.prototype.forEach.call(dotsEl.children, function (b, j) { b.classList.toggle('on', j === i); });
-                document.getElementById('count').textContent = String(i + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
-                document.getElementById('fill').style.width = ((i + 1) / n * 100).toFixed(2) + '%';
+                countEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
+                fillEl.style.width = ((i + 1) / n * 100).toFixed(2) + '%';
             }
 
-            // soft cross-fade between designs
+            // one swipe (or arrow tap) moves exactly one bouquet; the ends wrap around
             function go(j) {
-                if (busy || j === i) return;
-                busy = true;
-                stage.classList.add('swap');
-                setTimeout(function () {
-                    i = (j + n) % n;
-                    draw();
-                    stage.classList.remove('swap');
-                    busy = false;
-                }, 300);
+                j = (j + n) % n;
+                track.scrollTo({ left: j * track.clientWidth, behavior: 'smooth' });
             }
 
-            document.getElementById('prev').addEventListener('click', function () { go(idx(-1)); });
-            document.getElementById('next').addEventListener('click', function () { go(idx(1)); });
-            cards.l.addEventListener('click', function () { go(idx(-1)); });
-            cards.r.addEventListener('click', function () { go(idx(1)); });
-            cards.c.addEventListener('click', function () {
-                // designs with a flower mix open the builder; photo bouquets go straight to WhatsApp
-                if (window.Bouquet && C[i].mix) window.Bouquet.apply(C[i].mix, '');
-                else whatsapp('Hi ' + shop + ', I am interested in the "' + C[i].name + '" bouquet. Could you tell me more?');
+            track.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
+            window.addEventListener('resize', function () { track.scrollTo({ left: i * track.clientWidth }); sync(); });
+            document.getElementById('prev').addEventListener('click', function () { go(i - 1); });
+            document.getElementById('next').addEventListener('click', function () { go(i + 1); });
+            track.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
+                if (e.key === 'ArrowLeft') { e.preventDefault(); go(i - 1); }
+            });
+
+            document.querySelectorAll('.ask').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var b = C[+btn.dataset.i];
+                    whatsapp('Hi ' + shop + ', I am interested in the "' + b.name + '" bouquet. Could you tell me more?');
+                });
             });
 
             document.querySelectorAll('.occ').forEach(function (btn) {
@@ -830,21 +809,7 @@
                 });
             });
 
-            // swipe left/right on the carousel (touch screens only)
-            var tx = 0, ty = 0, tracking = false;
-            stage.addEventListener('touchstart', function (e) {
-                if (e.touches.length !== 1) return;
-                tx = e.touches[0].clientX; ty = e.touches[0].clientY; tracking = true;
-            }, { passive: true });
-            stage.addEventListener('touchend', function (e) {
-                if (!tracking) return;
-                tracking = false;
-                var t = e.changedTouches[0];
-                var dx = t.clientX - tx, dy = t.clientY - ty;
-                if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? idx(1) : idx(-1));
-            }, { passive: true });
-
-            draw();
+            sync();
         })();
     </script>
 
